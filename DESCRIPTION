@@ -1,0 +1,26 @@
+Package: future.mizu
+Version: 0.0.1
+Depends:
+    R (>= 4.3),
+    future (>= 1.80.0)
+Imports:
+    mizu (>= 0.1.1),
+    parallelly,
+    utils
+Suggests:
+    future.tests,
+    future.apply,
+    listenv
+Title: A 'Future' API for Parallel Processing using 'mizu'
+Description: Implementation of the 'Future' API <doi:10.32614/RJ-2021-048> on top of the 'mizu' package <doi:10.32614/CRAN.package.mizu>. By using this package, you get to take advantage of the thread-speed, shared-memory parallel R workers of 'mizu' plus everything else that 'future' and the 'Futureverse' adds on top of it. It allows you to process futures, as defined by the 'future' package, in parallel out of the box on your local machine. As a reminder, regardless which future backend is used by the user, the code does not have to change, it gives identical results, and behaves exactly the same.
+Authors@R: person("Henrik", "Bengtsson",
+         role = c("aut", "cre", "cph"),
+         email = "henrikb@braju.com",
+         comment = c(ORCID = "0000-0002-7579-5165"))
+License: Apache License (>= 2)
+Language: en-US
+Encoding: UTF-8
+URL: https://github.com/futureverse/future.mizu
+BugReports: https://github.com/futureverse/future.mizu/issues
+Roxygen: list(markdown = TRUE)
+Config/roxygen2/version: 8.1.1

@@ -1,0 +1,14 @@
+^.git/
+^.make/
+^[.][^.]*/
+^docs/
+^incl/
+^pkgdown/
+^revdep/
+^vignettes/.*[.](pdf|PDF)$
+^vignettes/.*[.](r|R)$
+^LICENSE\.md$
+^Makefile$
+Rplots.pdf$
+^.*[.]tar[.]gz$
+^CITATION\.cff$
