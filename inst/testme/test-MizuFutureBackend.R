@@ -37,8 +37,26 @@ v <- withCallingHandlers(value(f), message = function(m) {
 stopifnot(v == 1, identical(msgs, "hello\n"))
 
 ## Worker termination
-f <- future({ tools::pskill(Sys.getpid(), tools::SIGKILL); 1 })
+## (tools::pskill() with SIGKILL does not terminate the process on Windows)
+f <- future({
+  if (.Platform$OS.type == "windows") {
+    quit(save = "no", status = 1L, runLast = FALSE)
+  } else {
+    tools::pskill(Sys.getpid(), tools::SIGKILL)
+  }
+  1
+})
 res <- tryCatch(value(f), error = identity)
+if (!inherits(res, "FutureInterruptError")) {
+  ## Help to troubleshoot platform-specific outcomes
+  message("Unexpected outcome of future whose worker was terminated:")
+  message("Classes: ", paste(sQuote(class(res)), collapse = ", "))
+  if (inherits(res, "condition")) {
+    message("Message: ", conditionMessage(res))
+  } else {
+    str(res)
+  }
+}
 stopifnot(inherits(res, "FutureInterruptError"))
 
 ## A single worker falls back to sequential processing
@@ -46,5 +64,12 @@ plan(mizu_multisession, workers = 1L)
 stopifnot(value(future(Sys.getpid())) == Sys.getpid())
 
 plan(sequential)
+
+## On macOS, 'mizu' leaves its 'mizu' folder behind in the temporary
+## directory when a worker was killed, which 'R CMD check' reports as
+## detritus. Remove it, but only under 'R CMD check' where TMPDIR is private
+if (Sys.info()[["sysname"]] == "Darwin" && nzchar(Sys.getenv("_R_CHECK_PACKAGE_NAME_"))) {
+  unlink(file.path(dirname(tempdir()), "mizu"), recursive = TRUE)
+}
 
 message("*** MizuFutureBackend ... DONE")
