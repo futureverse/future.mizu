@@ -85,7 +85,7 @@ launchFuture.MizuFutureBackend <- function(backend, future, ...) {
   stop_if_not(nbrOfWorkers(backend) > 0L)
 
   ## Wait for a free worker
-  waitForWorker(backend, debug = debug)
+  waitForWorker(backend, registry = FutureRegistry, debug = debug)
 
   ## Record 'backend' in future for now
   future[["backend"]] <- backend
