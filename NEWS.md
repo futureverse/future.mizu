@@ -1,3 +1,10 @@
+# Version (development version)
+
+## Bug Fixes
+
+ * `listFutures()` did not list the active futures of the backend.
+
+
 # Version 0.0.1 [2026-11-09]
 
  * Initial version. Implements the `mizu_multisession` future backend,
