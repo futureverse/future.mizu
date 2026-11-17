@@ -1,9 +1,9 @@
 Package: future.mizu
-Version: 0.0.1-9002
+Version: 0.0.1-9003
 Depends:
     R (>= 4.3),
-    future (>= 1.80.0)
 Imports:
+    future (>= 1.82.0),
     mizu (>= 0.1.1),
     parallelly,
     utils
