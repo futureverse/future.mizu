@@ -86,7 +86,8 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9"><div class="section level1">
+  <main id="main" class="col-md-9">
+<div class="section level1">
 <div class="page-header"><h1 id="futuremizu-parallel-future-backend-using-mizu">future.mizu: Parallel Future Backend using ‘mizu’<a class="anchor" aria-label="anchor" href="#futuremizu-parallel-future-backend-using-mizu"></a>
 </h1></div>
 <blockquote>
@@ -95,27 +96,42 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>The <strong><a href="https://cran.r-project.org/package=future" class="external-link">future</a></strong> package provides a generic API for using futures in R. A future is a simple yet powerful mechanism to evaluate an R expression and retrieve its value at some point in time. Futures can be resolved in many different ways depending on which strategy is used. There are various types of synchronous and asynchronous futures to choose from in the <strong><a href="https://cran.r-project.org/package=future" class="external-link">future</a></strong> package.</p>
-<p>This package, <strong><a href="https://github.com/futureverse/future.mizu" class="external-link">future.mizu</a></strong>, provides a type of futures that utilizes the <strong><a href="https://cran.r-project.org/package=mizu" class="external-link">mizu</a></strong> package.</p>
-<p>For example,</p>
+<p>The <strong><a href="https://future.mizu.futureverse.org">future.mizu</a></strong> package is a backend for the <strong><a href="https://future.futureverse.org" class="external-link">future</a></strong> framework, also known as the <a href="https://www.futureverse.org" class="external-link">Futureverse</a>. The Futureverse makes it easy to parallelize existing R code - often with only a minor change of code. Most users interact with it via higher-level packages such as <strong><a href="https://futurize.futureverse.org" class="external-link">futurize</a></strong>, <strong><a href="https://future.apply.futureverse.org" class="external-link">future.apply</a></strong>, <strong><a href="https://furrr.futureverse.org" class="external-link">furrr</a></strong>, and <strong><a href="https://doFuture.futureverse.org" class="external-link">doFuture</a></strong>, and you choose <em>where</em> and <em>how</em> the code runs by setting a future backend with <code><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan()</a></code>. This package adds the <code>mizu_multisession</code> backend, which runs futures in parallel on the local machine using the <strong><a href="https://cran.r-project.org/package=mizu" class="external-link">mizu</a></strong> package.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://future.futureverse.org" class="external-link">future</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="fu">future.mizu</span><span class="fu">::</span><span class="va"><a href="reference/mizu_multisession.html">mizu_multisession</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://futurize.futureverse.org" class="external-link">futurize</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="fu">future.mizu</span><span class="fu">::</span><span class="va"><a href="reference/mizu_multisession.html">mizu_multisession</a></span><span class="op">)</span>  <span class="co"># parallelize on the current machine</span></span>
 <span></span>
-<span><span class="va">x</span> <span class="op"><a href="https://future.futureverse.org/reference/futureAssign.html" class="external-link">%&lt;-%</a></span> <span class="op">{</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html" class="external-link">Sys.sleep</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>; <span class="fl">3.14</span> <span class="op">}</span></span>
-<span><span class="va">y</span> <span class="op"><a href="https://future.futureverse.org/reference/futureAssign.html" class="external-link">%&lt;-%</a></span> <span class="op">{</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html" class="external-link">Sys.sleep</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>; <span class="fl">2.71</span> <span class="op">}</span></span>
-<span><span class="va">x</span> <span class="op">+</span> <span class="va">y</span></span>
-<span><span class="co">#&gt; [1] 5.85</span></span></code></pre></div>
-<p>This is obviously a toy example to illustrate what futures look like and how to work with them. For further examples on how to use futures, see the vignettes of the <strong><a href="https://cran.r-project.org/package=future" class="external-link">future</a></strong> package as well as those of <strong><a href="https://cran.r-project.org/package=future.apply" class="external-link">future.apply</a></strong>, <strong><a href="https://cran.r-project.org/package=furrr" class="external-link">furrr</a></strong>, and <strong><a href="https://cran.r-project.org/package=doFuture" class="external-link">doFuture</a></strong>. You can also use <strong><a href="https://cran.r-project.org/package=futurize" class="external-link">futurize</a></strong> to parallelize your existing map-reduce code, e.g. <code>lapply(xs, fcn) |&gt; futurize()</code>.</p>
+<span><span class="co"># A slow function</span></span>
+<span><span class="va">slow_fcn</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/Sys.sleep.html" class="external-link">Sys.sleep</a></span><span class="op">(</span><span class="fl">1.0</span><span class="op">)</span></span>
+<span>  <span class="va">x</span><span class="op">^</span><span class="fl">2</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Example data</span></span>
+<span><span class="va">xs</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span></span>
+<span></span>
+<span><span class="co"># Sequential and parallel base R apply</span></span>
+<span><span class="va">ys</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">xs</span>, <span class="va">slow_fcn</span><span class="op">)</span></span>
+<span><span class="va">ys</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">xs</span>, <span class="va">slow_fcn</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://futurize.futureverse.org/reference/futurize.html" class="external-link">futurize</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Sequential and parallel purrr map</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/" class="external-link">purrr</a></span><span class="op">)</span></span>
+<span><span class="va">ys</span> <span class="op">&lt;-</span> <span class="va">xs</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">slow_fcn</span><span class="op">)</span></span>
+<span><span class="va">ys</span> <span class="op">&lt;-</span> <span class="va">xs</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">slow_fcn</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://futurize.futureverse.org/reference/futurize.html" class="external-link">futurize</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Sequential and parallel foreach calls</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RevolutionAnalytics/foreach" class="external-link">foreach</a></span><span class="op">)</span></span>
+<span><span class="va">ys</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/foreach/man/foreach.html" class="external-link">foreach</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">xs</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/foreach/man/foreach.html" class="external-link">%do%</a></span> <span class="fu">slow_fcn</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="va">ys</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/foreach/man/foreach.html" class="external-link">foreach</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">xs</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/foreach/man/foreach.html" class="external-link">%do%</a></span> <span class="fu">slow_fcn</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://futurize.futureverse.org/reference/futurize.html" class="external-link">futurize</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>The only thing that differs from using <a href="https://www.futureverse.org/backends.html" class="external-link">any other future backend</a> is the <code><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan()</a></code> call. The code does not have to change, it gives identical results, and it behaves exactly the same.</p>
 </div>
 <div class="section level2">
-<h2 id="using-the-futuremizu-backend">Using the future.mizu backend<a class="anchor" aria-label="anchor" href="#using-the-futuremizu-backend"></a>
+<h2 id="the-mizu_multisession-backend">The mizu_multisession backend<a class="anchor" aria-label="anchor" href="#the-mizu_multisession-backend"></a>
 </h2>
-<p>The <strong>future.mizu</strong> package implements a <strong>future</strong> backend wrapper for <strong>mizu</strong>.</p>
 <table class="table">
 <colgroup>
 <col width="17%">
-<col width="55%">
+<col width="56%">
 <col width="26%">
 </colgroup>
 <thead><tr>
@@ -129,42 +145,37 @@
 <td align="left"><code>plan(multisession)</code></td>
 </tr></tbody>
 </table>
+<p>The <strong>mizu</strong> package runs parallel R workers on the local machine. Instead of communicating via sockets, the main R process and the workers exchange data via shared memory - POSIX shared memory on Linux and macOS, and Win32 file mappings on Windows.</p>
 <div class="section level3">
-<h3 id="advantages-of-mizu-futures">Advantages of mizu futures<a class="anchor" aria-label="anchor" href="#advantages-of-mizu-futures"></a>
+<h3 id="advantages">Advantages<a class="anchor" aria-label="anchor" href="#advantages"></a>
 </h3>
-<p>The <strong>mizu</strong> package runs parallel R workers on the local machine, where the main R process and the workers communicate via shared memory (POSIX shared memory on Linux and macOS, and Win32 file mappings on Windows) instead of through sockets. Communication is cheap enough that work can be divided into small pieces, and large vectors and data frames can be read in place, without being copied. The <code>mizu_multisession</code> futures make these properties available to everything that is built on the Future API, e.g. <strong>future.apply</strong>, <strong>furrr</strong>, <strong>doFuture</strong>, and <strong>futurize</strong>, without having to change any code.</p>
-<p>Because of this, <code>mizu_multisession</code> futures behave like any other future: the code does not have to change, the results are identical, and output and conditions, e.g. <code><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat()</a></code>, <code><a href="https://rdrr.io/r/base/message.html" class="external-link">message()</a></code>, and <code><a href="https://rdrr.io/r/base/warning.html" class="external-link">warning()</a></code>, are relayed to the main R session as usual.</p>
+<ul>
+<li><p>Communication between the main R process and the workers is cheap, which means that work can be split up into many small futures without the overhead dominating.</p></li>
+<li><p>Large vectors and data frames are read by the workers in place, without each worker holding its own copy.</p></li>
+<li><p>It works on Linux, macOS, and Windows, and requires no additional setup.</p></li>
+</ul>
 </div>
 <div class="section level3">
 <h3 id="limitations">Limitations<a class="anchor" aria-label="anchor" href="#limitations"></a>
 </h3>
 <ul>
-<li><p>The workers always run on the local machine. For workers on other machines, or on a high-performance compute (HPC) cluster, use another <strong>future</strong> backend.</p></li>
+<li><p>The workers always run on the local machine. For workers on other machines, or on a high-performance compute (HPC) cluster, use another future backend, e.g. <code>plan(cluster)</code> or <strong><a href="https://future.batchtools.futureverse.org" class="external-link">future.batchtools</a></strong>.</p></li>
 <li><p>At most 64 workers are supported by <strong>mizu</strong>.</p></li>
+<li><p>Data is passed via shared memory, which is limited in size. For instance, Docker containers default to only 64 MB of shared memory, which might not be enough when passing large objects.</p></li>
 <li><p>Cancelling a future is advisory. A future that is already running on a worker cannot be interrupted; it runs to completion and its result is discarded.</p></li>
 <li><p>Using a single worker, <code>plan(future.mizu::mizu_multisession, workers = 1)</code>, falls back to sequential processing in the current R process, unless the number of workers is protected by <code><a href="https://rdrr.io/r/base/AsIs.html" class="external-link">I()</a></code>, e.g. <code>workers = I(1)</code>.</p></li>
 </ul>
 </div>
 </div>
 <div class="section level2">
-<h2 id="demos">Demos<a class="anchor" aria-label="anchor" href="#demos"></a>
-</h2>
-<p>The <strong><a href="https://cran.r-project.org/package=future" class="external-link">future</a></strong> package provides a demo using futures for calculating a set of Mandelbrot planes. The demo does not assume anything about what type of futures are used. <em>The user has full control of how futures are evaluated</em>. For instance, to use <code>mizu_multisession</code> futures, run the demo as:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://future.futureverse.org" class="external-link">future</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="fu">future.mizu</span><span class="fu">::</span><span class="va"><a href="reference/mizu_multisession.html">mizu_multisession</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/demo.html" class="external-link">demo</a></span><span class="op">(</span><span class="st">"mandelbrot"</span>, package <span class="op">=</span> <span class="st">"future"</span>, ask <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>The package is not yet available on CRAN. To install the development version from GitHub, use:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"futureverse/future.mizu"</span><span class="op">)</span></span></code></pre></div>
-<p>This will install the package from source.</p>
+<p>The package is not yet available on CRAN. To install the development version, use:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"future.mizu"</span>, repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"https://futureverse-devel.r-universe.dev"</span>, <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
+
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
@@ -205,7 +216,15 @@
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/futureverse/future.mizu/actions?query=workflow%3AR-CMD-check" class="external-link"><img border="0" src="https://github.com/futureverse/future.mizu/actions/workflows/R-CMD-check.yaml/badge.svg?branch=main" alt="R CMD check status"></a></li>
+<li><a href="https://github.com/futureverse/future.mizu/actions?query=workflow%3Afuture_tests" class="external-link"><img border="0" src="https://github.com/futureverse/future.mizu/actions/workflows/future_tests.yaml/badge.svg?branch=main" alt="future.tests checks status"></a></li>
+<li><a href="https://app.codecov.io/gh/futureverse/future.mizu" class="external-link"><img border="0" src="https://codecov.io/gh/futureverse/future.mizu/branch/main/graph/badge.svg" alt="Coverage Status"></a></li>
+<li><a href="https://futureverse-devel.r-universe.dev/future.mizu" class="external-link"><img border="0" src="https://futureverse-devel.r-universe.dev/badges/future.mizu" alt="R-universe version"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>
