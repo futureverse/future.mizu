@@ -1,0 +1,124 @@
+# future.mizu: Parallel Future Backend using ‘mizu’
+
+> **Note:** This package is an early prototype under development.
+
+## Introduction
+
+The **[future](https://cran.r-project.org/package=future)** package
+provides a generic API for using futures in R. A future is a simple yet
+powerful mechanism to evaluate an R expression and retrieve its value at
+some point in time. Futures can be resolved in many different ways
+depending on which strategy is used. There are various types of
+synchronous and asynchronous futures to choose from in the
+**[future](https://cran.r-project.org/package=future)** package.
+
+This package,
+**[future.mizu](https://github.com/futureverse/future.mizu)**, provides
+a type of futures that utilizes the
+**[mizu](https://cran.r-project.org/package=mizu)** package.
+
+For example,
+
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`future`](https://future.futureverse.org)`)`\
+[`plan`](https://future.futureverse.org/reference/plan.html)`(``future.mizu``::`[`mizu_multisession`](https://future.mizu.futureverse.org/reference/mizu_multisession.md)`)`\
+\
+`x`` `[`%<-%`](https://future.futureverse.org/reference/futureAssign.html)` ``{`` `[`Sys.sleep`](https://rdrr.io/r/base/Sys.sleep.html)`(``5``)``; ``3.14`` ``}`\
+`y`` `[`%<-%`](https://future.futureverse.org/reference/futureAssign.html)` ``{`` `[`Sys.sleep`](https://rdrr.io/r/base/Sys.sleep.html)`(``5``)``; ``2.71`` ``}`\
+`x`` ``+`` ``y`\
+`#> [1] 5.85`
+
+This is obviously a toy example to illustrate what futures look like and
+how to work with them. For further examples on how to use futures, see
+the vignettes of the
+**[future](https://cran.r-project.org/package=future)** package as well
+as those of
+**[future.apply](https://cran.r-project.org/package=future.apply)**,
+**[furrr](https://cran.r-project.org/package=furrr)**, and
+**[doFuture](https://cran.r-project.org/package=doFuture)**. You can
+also use **[futurize](https://cran.r-project.org/package=futurize)** to
+parallelize your existing map-reduce code,
+e.g. `lapply(xs, fcn) |> futurize()`.
+
+## Using the future.mizu backend
+
+The **future.mizu** package implements a **future** backend wrapper for
+**mizu**.
+
+| Backend | Description | Alternative in future package |
+|:---|:---|:---|
+| `mizu_multisession` | parallel evaluation in separate R processes (on current machine) | `plan(multisession)` |
+
+### Advantages of mizu futures
+
+The **mizu** package runs parallel R workers on the local machine, where
+the main R process and the workers communicate via shared memory (POSIX
+shared memory on Linux and macOS, and Win32 file mappings on Windows)
+instead of through sockets. Communication is cheap enough that work can
+be divided into small pieces, and large vectors and data frames can be
+read in place, without being copied. The `mizu_multisession` futures
+make these properties available to everything that is built on the
+Future API, e.g. **future.apply**, **furrr**, **doFuture**, and
+**futurize**, without having to change any code.
+
+Because of this, `mizu_multisession` futures behave like any other
+future: the code does not have to change, the results are identical, and
+output and conditions, e.g. [`cat()`](https://rdrr.io/r/base/cat.html),
+[`message()`](https://rdrr.io/r/base/message.html), and
+[`warning()`](https://rdrr.io/r/base/warning.html), are relayed to the
+main R session as usual.
+
+### Limitations
+
+- The workers always run on the local machine. For workers on other
+  machines, or on a high-performance compute (HPC) cluster, use another
+  **future** backend.
+
+- At most 64 workers are supported by **mizu**.
+
+- Cancelling a future is advisory. A future that is already running on a
+  worker cannot be interrupted; it runs to completion and its result is
+  discarded.
+
+- Using a single worker,
+  `plan(future.mizu::mizu_multisession, workers = 1)`, falls back to
+  sequential processing in the current R process, unless the number of
+  workers is protected by [`I()`](https://rdrr.io/r/base/AsIs.html),
+  e.g. `workers = I(1)`.
+
+## Demos
+
+The **[future](https://cran.r-project.org/package=future)** package
+provides a demo using futures for calculating a set of Mandelbrot
+planes. The demo does not assume anything about what type of futures are
+used. *The user has full control of how futures are evaluated*. For
+instance, to use `mizu_multisession` futures, run the demo as:
+
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`future`](https://future.futureverse.org)`)`\
+[`plan`](https://future.futureverse.org/reference/plan.html)`(``future.mizu``::`[`mizu_multisession`](https://future.mizu.futureverse.org/reference/mizu_multisession.md)`)`\
+\
+[`demo`](https://rdrr.io/r/utils/demo.html)`(``"mandelbrot"``, package ``=`` ``"future"``, ask ``=`` ``FALSE``)`
+
+## Installation
+
+The package is not yet available on CRAN. To install the development
+version from GitHub, use:
+
+\
+`remotes``::`[`install_github`](https://remotes.r-lib.org/reference/install_github.html)`(``"futureverse/future.mizu"``)`
+
+This will install the package from source.
+
+# Package index
+
+## All functions
+
+- [`MizuFutureBackend()`](https://future.mizu.futureverse.org/reference/MizuFutureBackend.md)
+  : A future backend based on the 'mizu' framework
+- [`future.mizu`](https://future.mizu.futureverse.org/reference/future.mizu.md)
+  [`future.mizu-package`](https://future.mizu.futureverse.org/reference/future.mizu.md)
+  : future.mizu: Parallel Future Backend using 'mizu'
+- [`mizu_multisession()`](https://future.mizu.futureverse.org/reference/mizu_multisession.md)
+  : Mizu-based localhost multisession futures
+
