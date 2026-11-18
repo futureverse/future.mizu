@@ -4,7 +4,7 @@
 \name{future.mizu}
 \alias{future.mizu}
 \alias{future.mizu-package}
-\title{future.mizu: A Future API for Parallel Processing using 'mizu'}
+\title{future.mizu: Parallel Future Backend using 'mizu'}
 \description{
 The \pkg{future.mizu} package implements the Future API
 using the \pkg{mizu} package, which runs parallel R workers on the

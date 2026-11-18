@@ -1,4 +1,4 @@
-# future.mizu: A 'Future' API for Parallel Processing using 'mizu'
+# future.mizu: Parallel Future Backend using 'mizu'
 
 > **Note:** This package is an early prototype under development.
 

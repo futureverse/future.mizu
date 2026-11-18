@@ -11,8 +11,18 @@ Suggests:
     future.tests,
     future.apply,
     listenv
-Title: A 'Future' API for Parallel Processing using 'mizu'
-Description: Implementation of the 'Future' API <doi:10.32614/RJ-2021-048> on top of the 'mizu' package <doi:10.32614/CRAN.package.mizu>. By using this package, you get to take advantage of the thread-speed, shared-memory parallel R workers of 'mizu' plus everything else that 'future' and the 'Futureverse' adds on top of it. It allows you to process futures, as defined by the 'future' package, in parallel out of the box on your local machine. As a reminder, regardless which future backend is used by the user, the code does not have to change, it gives identical results, and behaves exactly the same.
+Title: Parallel Future Backend using 'mizu'
+Description: Implementation of the Future API <doi:10.32614/RJ-2021-048> on
+    top of the 'mizu' package <doi:10.32614/CRAN.package.mizu>. The backend
+    is fully compliant with the Future API, as validated by the
+    'future.tests' conformance test suite, meaning that code using futures
+    gives identical results and behaves the same regardless of which future
+    backend is used. Futures are resolved in parallel on the local machine
+    by R worker processes that exchange data via shared memory. A common use
+    is to parallelize existing map-reduce calls via the 'futurize' package
+    <doi:10.48550/arXiv.2601.17578>, e.g.
+    'plan(future.mizu::mizu_multisession)' followed by 'lapply(xs, fcn) |>
+    futurize()' or 'purrr::map(xs, fcn) |> futurize()'.
 Authors@R: person("Henrik", "Bengtsson",
          role = c("aut", "cre", "cph"),
          email = "henrikb@braju.com",

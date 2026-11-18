@@ -1,4 +1,4 @@
-#' future.mizu: A Future API for Parallel Processing using 'mizu'
+#' future.mizu: Parallel Future Backend using 'mizu'
 #'
 #' The \pkg{future.mizu} package implements the Future API
 #' using the \pkg{mizu} package, which runs parallel R workers on the
