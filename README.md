@@ -1,8 +1,10 @@
+
+
 <div id="badges"><!-- pkgdown markup -->
-<a href="https://CRAN.R-project.org/web/checks/check_results_future.mizu.html"><img border="0" src="https://www.r-pkg.org/badges/version/future.mizu" alt="CRAN check status"/></a> <a href="https://futureverse-devel.r-universe.dev/future.mizu"><img border="0" src="https://futureverse-devel.r-universe.dev/badges/future.mizu" alt="R-universe version"/></a> <a href="https://github.com/futureverse/future.mizu/actions?query=workflow%3AR-CMD-check"><img border="0" src="https://github.com/futureverse/future.mizu/actions/workflows/R-CMD-check.yaml/badge.svg?branch=main" alt="R CMD check status"/></a> <a href="https://github.com/futureverse/future.mizu/actions?query=workflow%3Afuture_tests"><img border="0" src="https://github.com/futureverse/future.mizu/actions/workflows/future_tests.yaml/badge.svg?branch=main" alt="future.tests checks status"/></a> <a href="https://app.codecov.io/gh/futureverse/future.mizu"><img border="0" src="https://codecov.io/gh/futureverse/future.mizu/branch/main/graph/badge.svg" alt="Coverage Status"/></a>
+ <a href="https://github.com/futureverse/future.mizu/actions?query=workflow%3AR-CMD-check"><img border="0" src="https://github.com/futureverse/future.mizu/actions/workflows/R-CMD-check.yaml/badge.svg?branch=main" alt="R CMD check status"/></a>  <a href="https://github.com/futureverse/future.mizu/actions?query=workflow%3Afuture_tests"><img border="0" src="https://github.com/futureverse/future.mizu/actions/workflows/future_tests.yaml/badge.svg?branch=main" alt="future.tests checks status"/></a>   <a href="https://app.codecov.io/gh/futureverse/future.mizu"><img border="0" src="https://codecov.io/gh/futureverse/future.mizu/branch/main/graph/badge.svg" alt="Coverage Status"/></a> <a href="https://futureverse-devel.r-universe.dev/future.mizu"><img border="0" src="https://futureverse-devel.r-universe.dev/badges/future.mizu" alt="R-universe version"/></a>
 </div>
 
-# future.mizu: Parallel Future Backend using 'mizu'
+# future.mizu: Parallel Future Backend using 'mizu' 
 
 > **Note:** This package is an early prototype under development.
 
@@ -37,8 +39,8 @@ ys <- lapply(xs, slow_fcn) |> futurize()
 
 # Sequential and parallel purrr map
 library(purrr)
-ys <- xs |>  map(slow_fcn)
-ys <- xs |>  map(slow_fcn) |> futurize()
+ys <- xs |> map(slow_fcn)
+ys <- xs |> map(slow_fcn) |> futurize()
 
 # Sequential and parallel foreach calls
 library(foreach)
@@ -46,7 +48,7 @@ ys <- foreach(x = xs) %do% slow_fcn(x)
 ys <- foreach(x = xs) %do% slow_fcn(x) |> futurize()
 ```
 
-The only thing that differs from using any other future backend is
+The only thing that differs from using [any other future backend](https://www.futureverse.org/backends.html) is
 the `plan()` call. The code does not have to change, it gives
 identical results, and it behaves exactly the same.
 
@@ -97,6 +99,15 @@ and macOS, and Win32 file mappings on Windows.
   falls back to sequential processing in the current R process, unless
   the number of workers is protected by `I()`, e.g. `workers = I(1)`.
 
+[Futureverse]: https://www.futureverse.org
+[future]: https://future.futureverse.org
+[future.mizu]: https://future.mizu.futureverse.org
+[future.apply]: https://future.apply.futureverse.org
+[future.batchtools]: https://future.batchtools.futureverse.org
+[furrr]: https://furrr.futureverse.org
+[doFuture]: https://doFuture.futureverse.org
+[futurize]: https://futurize.futureverse.org
+[mizu]: https://cran.r-project.org/package=mizu
 
 ## Installation
 
@@ -108,12 +119,5 @@ install.packages("future.mizu", repos = c("https://futureverse-devel.r-universe.
 ```
 
 
-[Futureverse]: https://www.futureverse.org
-[future]: https://future.futureverse.org
-[future.mizu]: https://future.mizu.futureverse.org
-[future.apply]: https://future.apply.futureverse.org
-[future.batchtools]: https://future.batchtools.futureverse.org
-[furrr]: https://furrr.futureverse.org
-[doFuture]: https://doFuture.futureverse.org
-[futurize]: https://futurize.futureverse.org
-[mizu]: https://cran.r-project.org/package=mizu
+<!-- pkgdown-drop-below -->
+
