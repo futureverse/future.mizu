@@ -36,7 +36,3 @@ importFrom(mizu,
   mizu_submit
 )
 importFrom(parallelly,availableCores)
-importFrom(utils,
-  capture.output,
-  str
-)

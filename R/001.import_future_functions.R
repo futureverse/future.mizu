@@ -9,6 +9,18 @@ fileImmediateConditionHandler <- import_future("fileImmediateConditionHandler")
 immediateConditionsPath <- import_future("immediateConditionsPath")
 with_stealth_rng <- import_future("with_stealth_rng")
 sQuoteLabel <- import_future("sQuoteLabel")
+stop_if_not <- import_future("stop_if_not")
+commaq <- import_future("commaq")
+
+## Debug functions imported from 'future'
+mdebug <- import_future("mdebug")
+mdebugf <- import_future("mdebugf")
+mdebug_push <- import_future("mdebug_push")
+mdebugf_push <- import_future("mdebugf_push")
+mdebug_pop <- import_future("mdebug_pop")
+mdebugf_pop <- import_future("mdebugf_pop")
+mprint <- import_future("mprint")
+mstr <- import_future("mstr")
 
 ## An environment must be imported when the package is loaded, otherwise
 ## we would get a copy and not share the state with 'future'

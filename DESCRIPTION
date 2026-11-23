@@ -1,12 +1,11 @@
 Package: future.mizu
-Version: 0.0.1-9004
+Version: 0.0.1-9005
 Depends:
     R (>= 4.3),
 Imports:
     future (>= 1.82.0),
     mizu (>= 0.1.1),
-    parallelly,
-    utils
+    parallelly
 Suggests:
     future.tests,
     future.apply,

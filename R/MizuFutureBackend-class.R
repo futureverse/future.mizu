@@ -76,7 +76,7 @@ get_pool <- function(backend) {
 #' @importFrom future launchFuture
 #' @export
 launchFuture.MizuFutureBackend <- function(backend, future, ...) {
-  debug <- isTRUE(getOption("future.mizu.debug"))
+  debug <- isTRUE(getOption("future.debug"))
   if (debug) {
     mdebugf_push("launchFuture() for %s ...", class(backend)[1])
     on.exit(mdebug_pop())
@@ -114,7 +114,7 @@ launchFuture.MizuFutureBackend <- function(backend, future, ...) {
 #' @importFrom mizu mizu_pool_stop
 #' @export
 stopWorkers.MizuFutureBackend <- function(backend, ...) {
-  debug <- isTRUE(getOption("future.mizu.debug"))
+  debug <- isTRUE(getOption("future.debug"))
   if (debug) {
     mdebugf_push("stopWorkers() for %s ...", class(backend)[1])
     on.exit(mdebug_pop())
@@ -193,7 +193,7 @@ mizu_collect_future <- function(future, timeout = Inf) {
 #' @importFrom future resolved run
 #' @export
 resolved.MizuFuture <- function(x, .signalEarly = TRUE, ...) {
-  debug <- isTRUE(getOption("future.mizu.debug"))
+  debug <- isTRUE(getOption("future.debug"))
   if (debug) {
     mdebugf_push("resolved() for %s ...", class(x)[1])
     on.exit(mdebug_pop())
@@ -229,7 +229,7 @@ resolved.MizuFuture <- function(x, .signalEarly = TRUE, ...) {
 #' @importFrom future result FutureError FutureInterruptError
 #' @export
 result.MizuFuture <- function(future, ...) {
-  debug <- isTRUE(getOption("future.mizu.debug"))
+  debug <- isTRUE(getOption("future.debug"))
   if (debug) {
     mdebugf_push("result() for %s ...", class(future)[1])
     mdebugf("Future state: %s", sQuote(future[["state"]]))
