@@ -1,7 +1,7 @@
 Package: future.mizu
-Version: 0.0.1-9005
+Version: 0.1.0
 Depends:
-    R (>= 4.3),
+    R (>= 4.3.0),
 Imports:
     future (>= 1.82.0),
     mizu (>= 0.1.1),
@@ -20,8 +20,8 @@ Description: Implementation of the Future API <doi:10.32614/RJ-2021-048> on
     by R worker processes that exchange data via shared memory. A common use
     is to parallelize existing map-reduce calls via the 'futurize' package
     <doi:10.48550/arXiv.2601.17578>, e.g.
-    'plan(future.mizu::mizu_multisession)' followed by 'lapply(xs, fcn) |>
-    futurize()' or 'purrr::map(xs, fcn) |> futurize()'.
+    'plan(future.mizu::mizu_multisession)' followed by
+    'lapply(xs, fcn) |> futurize()' or 'purrr::map(xs, fcn) |> futurize()'.
 Authors@R: person("Henrik", "Bengtsson",
          role = c("aut", "cre", "cph"),
          email = "henrikb@braju.com",
@@ -29,7 +29,7 @@ Authors@R: person("Henrik", "Bengtsson",
 License: Apache License (>= 2)
 Language: en-US
 Encoding: UTF-8
-URL: https://github.com/futureverse/future.mizu
+URL: https://future.mizu.futureverse.org/
 BugReports: https://github.com/futureverse/future.mizu/issues
 Roxygen: list(markdown = TRUE)
 Config/roxygen2/version: 8.1.1
