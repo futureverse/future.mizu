@@ -50,7 +50,7 @@ ys <- foreach(x = xs) \%do\% slow_fcn(x) |> futurize()
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/futureverse/future.mizu}
+  \item \url{https://future.mizu.futureverse.org/}
   \item Report bugs at \url{https://github.com/futureverse/future.mizu/issues}
 }
 
