@@ -1,11 +1,9 @@
 # Changelog
 
-## Version (development version)
+## Version 0.1.0
 
-### Bug Fixes
-
-- [`listFutures()`](https://future.futureverse.org/reference/FutureBackend-class.html)
-  did not list the active futures of the backend.
+- Released on R-universe. The future backend is fully compliant with the
+  Future API.
 
 ## Version 0.0.1
 
