@@ -1,5 +1,19 @@
 # Changelog
 
+## Version (development version)
+
+### Bug Fixes
+
+- Calling
+  [`value()`](https://future.futureverse.org/reference/value.html) or
+  [`result()`](https://future.futureverse.org/reference/result.html) on
+  a `MizuFuture` that had already been collected and then canceled with
+  [`cancel()`](https://future.futureverse.org/reference/cancel.html)
+  failed with `mizu: task handle already collected`, instead of
+  returning the cached result (so
+  [`value()`](https://future.futureverse.org/reference/value.html) can
+  signal a `FutureCanceledError`).
+
 ## Version 0.1.0
 
 - Released on R-universe. The future backend is fully compliant with the
