@@ -1,6 +1,11 @@
 # Version (development version)
 
- * ...
+## Bug Fixes
+
+ * Calling `value()` or `result()` on a `MizuFuture` that had already
+   been collected and then canceled with `cancel()` failed with
+   `mizu: task handle already collected`, instead of returning the
+   cached result (so `value()` can signal a `FutureCanceledError`).
 
 
 # Version 0.1.0 [2026-11-23]

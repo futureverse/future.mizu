@@ -236,12 +236,14 @@ result.MizuFuture <- function(future, ...) {
     on.exit(mdebug_pop())
   }
 
-  state <- future[["state"]]
-  if (state == "finished") {
-    return(future[["result"]])
-  } else if (state %in% c("failed", "interrupted")) {
-    stop(future[["result"]])
+  ## Has the result already been collected?
+  result <- future[["result"]]
+  if (!is.null(result)) {
+    if (inherits(result, "FutureError")) stop(result)
+    return(result)
   }
+
+  state <- future[["state"]]
 
   backend <- future[["backend"]]
   reg <- backend[["reg"]]
